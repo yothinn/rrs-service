@@ -13,7 +13,7 @@ module.exports = function (app) {
 
     app.route(urlUserRole)
         .all(policy.isAllowed)
-        .get(controller.getByUsername);
+        .post(controller.getByUsername);
 
     app.route(urlWithParam).all(policy.isAllowed)
         .get(controller.read)

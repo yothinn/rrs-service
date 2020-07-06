@@ -109,7 +109,7 @@ describe('UserPermission CRUD routes tests', function () {
                     return done(err);
                 }
                 request(app)
-                    .get('/api/rrs/userpermission')
+                    .post('/api/rrs/userpermission')
                     .set('Authorization', 'Bearer ' + tokenStaff)
                     .send({ username: mockupStaff.username })
                     .expect(200)
@@ -136,7 +136,7 @@ describe('UserPermission CRUD routes tests', function () {
                     return done(err);
                 }
                 request(app)
-                    .get('/api/rrs/userpermission')
+                    .post('/api/rrs/userpermission')
                     .set('Authorization', 'Bearer ' + tokenAdmin)
                     .send({ username: mockupAdmin.username })
                     .expect(200)
@@ -163,7 +163,7 @@ describe('UserPermission CRUD routes tests', function () {
                     return done(err);
                 }
                 request(app)
-                    .get('/api/rrs/userpermission')
+                    .post('/api/rrs/userpermission')
                     .set('Authorization', 'Bearer ' + tokenStaff)
                     .send({ username: mockupStaff.username })
                     .expect(200)
@@ -190,7 +190,7 @@ describe('UserPermission CRUD routes tests', function () {
                     return done(err);
                 }
                 request(app)
-                    .get('/api/rrs/userpermission')
+                    .post('/api/rrs/userpermission')
                     .set('Authorization', 'Bearer ' + tokenInvalid)
                     .send({ username: mockupStaff.username })
                     .expect(403)
