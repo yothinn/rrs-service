@@ -2,7 +2,7 @@
 var mongoose = require('mongoose'),
     model = require('../models/model'),
     mq = require('../../core/controllers/rabbitmq'),
-    Rrsrole = mongoose.model('Rrsrole'),
+    Permission = mongoose.model('RRSUserPermission'),
     errorHandler = require('../../core/controllers/errors.server.controller'),
     _ = require('lodash');
 
@@ -16,7 +16,7 @@ exports.getList = function (req, res) {
     }
     query.skip = size * (pageNo - 1);
     query.limit = size;
-        Rrsrole.find({}, {}, query, function (err, datas) {
+        Permission.find({}, {}, query, function (err, datas) {
             if (err) {
                 return res.status(400).send({
                     status: 400,
@@ -32,9 +32,9 @@ exports.getList = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    var newRrsrole = new Rrsrole (req.body);
-    newRrsrole.createby = req.user;
-    newRrsrole.save(function (err, data) {
+    var newPermission = new Permission(req.body);
+    newPermission.createby = req.user;
+    newPermission.save(function (err, data) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -62,7 +62,7 @@ exports.getByID = function (req, res, next, id) {
         });
     }
 
-    Rrsrole.findById(id, function (err, data) {
+    Permission.findById(id, function (err, data) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -83,10 +83,10 @@ exports.read = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    var updRrsrole = _.extend(req.data, req.body);
-    updRrsrole.updated = new Date();
-    updRrsrole.updateby = req.user;
-    updRrsrole.save(function (err, data) {
+    var updPermission = _.extend(req.data, req.body);
+    updPermission.updated = new Date();
+    updPermission.updateby = req.user;
+    updPermission.save(function (err, data) {
         if (err) {
             return res.status(400).send({
                 status: 400,
@@ -102,6 +102,8 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
+    // Not remove in database ??
+    
     req.data.remove(function (err, data) {
         if (err) {
             return res.status(400).send({
@@ -116,3 +118,29 @@ exports.delete = function (req, res) {
         };
     });
 };
+
+exports.getByUsername = function (req, res) {
+    
+    // Query by username
+    var query = {
+        username: req.body.username
+    };
+
+    // console.log(query);
+
+    Permission.find(query, function(err, datas) {
+        if (err) {
+            return res.status(400).send({
+                status: 400,
+                message: errorHandler.getErrorMessage(err)
+            });
+        } else {
+            // Return userpermission
+            // console.log(`getByUsername : ${datas}`);
+            res.jsonp({
+                status: 200,
+                data: datas
+            });
+        }
+    });
+}

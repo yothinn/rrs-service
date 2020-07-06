@@ -14,18 +14,49 @@ acl = new acl(new acl.memoryBackend());
 exports.invokeRolesPolicies = function() {
   acl.allow([
     {
-      roles: ["admin", "user"],
+      roles: ["superadmin"],
       allows: [
         {
-          resources: "/api/rrsroles",
+          resources: "/api/rrs/user",
           permissions: "*"
         },
         {
-          resources: "/api/rrsroles/:rrsroleId",
+          resources: "/api/rrs/user/:userId",
+          permissions: "*"
+        },
+        {
+          resources: "/api/rrs/userpermission",
           permissions: "*"
         }
       ]
+    },
+    {
+      roles: ["admin", "manager"],
+      allows: [
+        {
+          resources: "/api/rrs/user",
+          permissions: ["get"]
+        },
+        {
+          resources: "/api/rrs/user/:userId",
+          permissions: ["get"]
+        },
+        {
+          resources: "/api/rrs/userpermission",
+          permissions: ["get"]
+        }
+      ]
+    },
+    {
+      roles: ["staff"],
+      allows: [
+        {
+          resources: "/api/rrs/userpermission",
+          permissions: ["get"]
+        },
+      ]
     }
+
   ]);
 };
 
@@ -34,6 +65,8 @@ exports.invokeRolesPolicies = function() {
  */
 exports.isAllowed = function(req, res, next) {
   var roles = req.user ? req.user.roles : ["guest"];
+
+  // console.log(req.body);
 
   // Check for user roles
   acl.areAnyRolesAllowed(
