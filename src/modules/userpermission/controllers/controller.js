@@ -128,7 +128,7 @@ exports.getByUsername = function (req, res) {
 
     // console.log(query);
 
-    Permission.find(query, function(err, datas) {
+    Permission.findOne(query, function(err, datas) {
         if (err) {
             return res.status(400).send({
                 status: 400,
