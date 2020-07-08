@@ -41,7 +41,7 @@ describe('Restuarant CRUD routes tests', function () {
             firstname: 'first name',
             lastname: 'last name',
             email: 'test@email.com',
-            roles: ['user']
+            roles: ['superadmin']
         };
         token = jwt.sign(_.omit(credentials, 'password'), config.jwt.secret, {
             expiresIn: 2 * 60 * 60 * 1000
@@ -206,7 +206,7 @@ describe('Restuarant CRUD routes tests', function () {
 
     });
 
-    xit('should be restuarant get not use token', (done)=>{
+    it('should be restuarant get not use token', (done)=>{
         request(app)
         .get('/api/restuarants')
         .expect(403)
@@ -217,7 +217,7 @@ describe('Restuarant CRUD routes tests', function () {
         .end(done);
     });
 
-    xit('should be restuarant post not use token', function (done) {
+    it('should be restuarant post not use token', function (done) {
 
         request(app)
             .post('/api/restuarants')
@@ -231,7 +231,7 @@ describe('Restuarant CRUD routes tests', function () {
 
     });
 
-    xit('should be restuarant put not use token', function (done) {
+    it('should be restuarant put not use token', function (done) {
 
         request(app)
             .post('/api/restuarants')
@@ -259,7 +259,7 @@ describe('Restuarant CRUD routes tests', function () {
 
     });
 
-    xit('should be restuarant delete not use token', function (done) {
+    it('should be restuarant delete not use token', function (done) {
 
         request(app)
             .post('/api/restuarants')

@@ -41,7 +41,7 @@ describe('RrsCustomer CRUD routes tests', function () {
             firstname: 'first name',
             lastname: 'last name',
             email: 'test@email.com',
-            roles: ['user']
+            roles: ['superadmin']
         };
         token = jwt.sign(_.omit(credentials, 'password'), config.jwt.secret, {
             expiresIn: 2 * 60 * 60 * 1000
@@ -208,7 +208,7 @@ describe('RrsCustomer CRUD routes tests', function () {
 
     });
 
-    xit('should be rrscustomer get not use token', (done)=>{
+    it('should be rrscustomer get not use token', (done)=>{
         request(app)
         .get('/api/rrscustomers')
         .expect(403)
@@ -219,7 +219,7 @@ describe('RrsCustomer CRUD routes tests', function () {
         .end(done);
     });
 
-    xit('should be rrscustomer post not use token', function (done) {
+    it('should be rrscustomer post not use token', function (done) {
 
         request(app)
             .post('/api/rrscustomers')
@@ -233,7 +233,7 @@ describe('RrsCustomer CRUD routes tests', function () {
 
     });
 
-    xit('should be rrscustomer put not use token', function (done) {
+    it('should be rrscustomer put not use token', function (done) {
 
         request(app)
             .post('/api/rrscustomers')
@@ -261,7 +261,7 @@ describe('RrsCustomer CRUD routes tests', function () {
 
     });
 
-    xit('should be rrscustomer delete not use token', function (done) {
+    it('should be rrscustomer delete not use token', function (done) {
 
         request(app)
             .post('/api/rrscustomers')

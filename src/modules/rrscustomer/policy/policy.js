@@ -14,7 +14,7 @@ acl = new acl(new acl.memoryBackend());
 exports.invokeRolesPolicies = function() {
   acl.allow([
     {
-      roles: ["admin", "user"],
+      roles: ["superadmin"],
       allows: [
         {
           resources: "/api/rrscustomers",
@@ -23,6 +23,32 @@ exports.invokeRolesPolicies = function() {
         {
           resources: "/api/rrscustomers/:rrscustomerId",
           permissions: "*"
+        }
+      ]
+    },
+    {
+      roles: ["admin", "manager"],
+      allows: [
+        {
+          resources: "/api/rrscustomers",
+          permissions: "*"
+        },
+        {
+          resources: "/api/rrscustomers/:rrscustomerId",
+          permissions: "*"
+        }
+      ]
+    },
+    {
+      roles: ["staff"],
+      allows: [
+        {
+          resources: "/api/rrscustomers",
+          permissions: ["get"]
+        },
+        {
+          resources: "/api/rrscustomers/:rrscustomerId",
+          permissions: ["get", "post"]
         }
       ]
     }
