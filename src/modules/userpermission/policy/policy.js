@@ -39,7 +39,7 @@ exports.invokeRolesPolicies = function() {
         },
         {
           resources: "/api/rrs/user/:userId",
-          permissions: ["get"]
+          permissions: ["get", "put"]
         },
         {
           resources: "/api/rrs/userpermission",
