@@ -43,6 +43,10 @@ exports.invokeRolesPolicies = function() {
       roles: ["staff"],
       allows: [
         {
+          resources: "/api/restuarants",
+          permissions: ["get"]
+        },
+        {
           resources: "/api/restuarants/:restuarantId",
           permissions: ["get"]
         }
